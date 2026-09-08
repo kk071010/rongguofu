@@ -1,0 +1,18 @@
+.culture-section {
+    background-color: #fff;
+    border-left: 5px solid #8B0000; 
+    margin: 40px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.culture-section h2 {
+    color: #8B0000; 
+    font-size: 28px;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 10px;
+}
+.culture-section p {
+    line-height: 1.8;
+    font-size: 18px;
+    text-indent: 2em; 
+}

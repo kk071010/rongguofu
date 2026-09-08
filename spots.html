@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>景点导览 - 正定荣国府</title>
+    <style>
+        /* ===== 全局样式 ===== */
+        body {
+            margin: 0;
+            font-family: "KaiTi", "STKaiti", "SimSun", serif;
+            background-color: #faf6f1;
+            color: #333;
+            line-height: 1.7;
+        }
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* ===== 页面标题 ===== */
+        h1 {
+            color: #8B0000;
+            text-align: center;
+            border-bottom: 2px solid #8B0000;
+            padding-bottom: 15px;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .page-desc {
+            text-align: center;
+            color: #888;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+
+        /* ===== 景点卡片 ===== */
+        .spot {
+            background: #fff;
+            margin: 25px 0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border-left: 5px solid #b8860b;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .spot:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        /* 序号标签 */
+        .spot-num {
+            position: absolute;
+            background: #8B0000;
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            margin-left: -36px;
+            margin-top: -5px;
+        }
+
+        /* 景点图片 */
+        .spot-img {
+            width: 240px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+            border: 2px solid #f0e6d2;
+        }
+
+        /* 景点文字 */
+        .spot-info {
+            flex: 1;
+        }
+        .spot-info h3 {
+            color: #8B0000;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+        .spot-info p {
+            margin: 0;
+            color: #555;
+            font-size: 16px;
+        }
+
+        /* ===== 返回按钮 ===== */
+        .back-btn {
+            display: inline-block;
+            margin-top: 40px;
+            color: #fff;
+            background-color: #8B0000;
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .back-btn:hover {
+            background-color: #b8860b;
+        }
+        .back-wrap {
+            text-align: center;
+        }
+
+        /* ===== 响应式（手机端） ===== */
+        @media (max-width: 650px) {
+            .spot {
+                flex-direction: column;
+            }
+            .spot-img {
+                width: 100%;
+                height: 180px;
+            }
+            .spot-num {
+                margin-left: 0;
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>荣国府景点导览</h1>
+        <p class="page-desc">漫步荣国府，一砖一瓦皆红楼</p>
+
+        <!-- 景点 1 -->
+        <div class="spot">
+            <span class="spot-num">1</span>
+            <img src="spots/zhengmen.jpg" alt="荣国府正门" class="spot-img">
+            <div class="spot-info">
+                <h3>荣国府正门</h3>
+                <p>五间正门，气势恢宏，是进入荣国府的第一道门，也是87版《红楼梦》中多次出现的经典场景。门前石狮威严，匾额高悬，尽显贾府当年"钟鸣鼎食之家"的显赫地位。</p>
+            </div>
+        </div>
+
+        <!-- 景点 2 -->
+        <div class="spot">
+            <span class="spot-num">2</span>
+            <img src="spots/caoxueqin.jpg" alt="曹雪芹纪念馆" class="spot-img">
+            <div class="spot-info">
+                <h3>曹雪芹纪念馆</h3>
+                <p>展示曹雪芹生平及《红楼梦》创作背景，馆内藏有多种珍贵版本和文献资料。走进这里，仿佛能触摸到那位"披阅十载、增删五次"的伟大作家的灵魂。</p>
+            </div>
+        </div>
+
+        <!-- 景点 3 -->
+        <div class="spot">
+            <span class="spot-num">3</span>
+            <img src="spots/jiamu.jpg" alt="贾母院" class="spot-img">
+            <div class="spot-info">
+                <h3>贾母院</h3>
+                <p>贾母居住的院落，陈设最为讲究，体现了贾府鼎盛时期的奢华生活。院内花团锦簇、雕梁画栋，是府中最尊贵的长辈居所，也是众多重要情节的发源地。</p>
+            </div>
+        </div>
+
+        <!-- 景点 4 -->
+        <div class="spot">
+            <span class="spot-num">4</span>
+            <img src="spots/ningrong.jpg" alt="宁荣街" class="spot-img">
+            <div class="spot-info">
+                <h3>宁荣街</h3>
+                <p>全长200余米，再现了《红楼梦》中宁国府和荣国府门前的繁华街市景象。街道两旁店铺林立、旗幡招展，让人仿佛穿越回那个"鲜花着锦、烈火烹油"的盛世时光。</p>
+            </div>
+        </div>
+
+        <!-- 返回首页 -->
+        <div class="back-wrap">
+            <a href="Untitled-1.html" class="back-btn">← 返回首页</a>
+        </div>
+    </div>
+</body>
+</html>

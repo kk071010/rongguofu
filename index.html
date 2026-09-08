@@ -1,0 +1,425 @@
+<<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图测试</title>
+    <style>
+        .slide-wrapper {
+            display: flex;
+            transition: transform 0.5s ease;
+            width: 100%;
+        }
+        .slides-container {
+            width: 600px;
+            overflow: hidden;
+            margin: 50px auto;
+        }
+        .slide-item {
+    min-width: 100%;
+    height: 300px;
+    background-size: cover;       
+    background-position: center;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0,0,0,0.7);
+}
+        button {
+            margin: 10px;
+            padding: 8px 16px;
+        }
+        /* ===== 全局与排版 ===== */
+body {
+    margin: 0;
+    font-family: "KaiTi", "STKaiti", "SimSun", serif; 
+    background-color: #faf6f1;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* ===== 文化故事区 ===== */
+.culture-section {
+    background-color: #fff;
+    border-left: 5px solid #8B0000; 
+    margin: 40px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.culture-section h2 {
+    color: #8B0000; 
+    font-size: 28px;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 10px;
+}
+
+.culture-section p {
+    line-height: 1.8;
+    font-size: 18px;
+    text-indent: 2em; 
+}
+
+/* ===== 游览指南区 ===== */
+.info-section {
+    background-color: #fdfaf3;
+    padding: 20px 0;
+}
+
+.info-section h2 {
+    color: #b8860b; 
+    text-align: center;
+}
+
+.info-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.info-list li {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-top: 3px solid #b8860b;
+}
+
+/* ===== 页脚 ===== */
+footer {
+    background-color: #2c2c2c;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+}
+
+/* ===== 轮播图按钮样式 ===== */
+button.prev, button.next {
+    display: block;
+    margin: 20px auto;
+    background-color: #8B0000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+button.prev:hover, button.next:hover {
+    background-color: #a52a2a;
+}
+/* ===== 弹窗样式 ===== */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: #fff;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90%;
+    overflow: hidden;
+    position: relative;
+    animation: popIn 0.3s ease;
+}
+
+@keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.modal-close:hover {
+    color: #ff4444;
+}
+
+.modal-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+.modal-text {
+    padding: 20px;
+}
+
+.modal-text h3 {
+    margin-top: 0;
+    color: #8B0000;
+}
+
+.modal-text p {
+    line-height: 1.7;
+    color: #555;
+}
+
+.open-modal-btn {
+    margin-top: 10px;
+    background-color: #b8860b;
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.open-modal-btn:hover {
+    background-color: #8B0000;
+}
+/* 购票按钮 */
+.open-ticket-btn {
+    margin-top: 10px;
+    background-color: #8B0000;
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.open-ticket-btn:hover {
+    background-color: #a52a2a;
+}
+
+/* 购票链接 */
+.ticket-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.ticket-link {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #95b80b;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.ticket-link:hover {
+    background-color: #8B0000;
+}
+/* ===== 顶部标题 ===== */
+.site-header {
+    background: linear-gradient(135deg, #8B0000, #a52a2a);
+    padding: 30px 0;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.site-title {
+    color: #FFD700;
+    font-size: 48px;
+    margin: 0;
+    font-family: "KaiTi", "STKaiti", serif;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    letter-spacing: 12px;
+}
+/* 红楼梦按钮 */
+.honglou-btn {
+    margin-top: 20px;
+    background-color: #8B0000;
+    color: #fff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: "KaiTi", "STKaiti", serif;
+    transition: background 0.3s;
+}
+
+.honglou-btn:hover {
+    background-color: #95b80b;
+}
+/* 景点按钮 */
+.spots-btn {
+    background-color: #8B0000;
+    color: #fff;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: "KaiTi", "STKaiti", serif;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s;
+}
+
+.spots-btn:hover {
+    background-color: #b8860b;
+}
+</style>
+</head>
+<body>
+    <!-- 顶部标题 -->
+    <div class="site-header">
+        <h1 class="site-title">荣国府</h1>
+    </div>
+
+    <div class="slides-container">
+        <div class="slide-wrapper" id="slideWrapper">
+            <div class="slide-item" style="background-image: url('img1.jpg');"></div>
+            <div class="slide-item" style="background-image: url('img2.jpg');"></div>
+            <div class="slide-item" style="background-image: url('img3.jpg');"></div>
+        </div>
+    </div>
+
+    <button class="prev">上一页</button>
+    <button class="next">下一页</button>
+
+<!-- 1. 文化故事区 -->
+<section class="culture-section">
+    <div class="container">
+        <h2>荣国府与《红楼梦》</h2>
+        <p>
+            正定荣国府是为拍摄电视剧《87版红楼梦》而建造的影视基地，被誉为"中国古建看明清，明清古建看正定"。
+            这里完美还原了曹雪芹笔下的宁荣街盛景，是红迷心中的文化圣地。
+        </p>
+        <button class="honglou-btn">了解更多红楼梦文化</button>
+    </div>
+</section>
+
+<!-- 2. 实用信息区 -->
+<section class="info-section">
+    <div class="container">
+        <h2>游览指南</h2>
+        <ul class="info-list">
+            <li>
+    <strong>开放时间：</strong> 08:30 - 17:30（旺季）；09:00 - 17:00（淡季）
+    <button class="open-modal-btn">查看详情</button></li>
+           <li>
+    <strong>门票价格：</strong> 成人票 40 元 / 儿童票 20 元 / 学生半价（成人票，凭有效证件）
+    <button class="open-ticket-btn">网上购票</button></li>
+            <li>
+    <strong>推荐游览：</strong> 荣国府正门 → 曹雪芹纪念馆 → 贾母院 → 宁荣街
+    <br><br>
+    <a href="spots.html" class="spots-btn">查看景点详情</a></li>
+        </ul>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer>
+    <p>© 2026 正定荣国府文化展示网页 | 仅供学习使用</p>
+</footer>
+    <!-- 弹窗遮罩 --> 
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <span class="modal-close" id="modalClose">&times;</span>
+        <img src="images/time-detail.jpg" alt="开放时间详情" class="modal-img">
+        <div class="modal-text">
+            <h3>荣国府开放时间说明</h3>
+            <p>
+                正定荣国府开放时间：夏令8:30-18:00，17:30停止入场。 冬令8:30-17:00，16:30停止入场。
+                 荣国府，位于河北省石家庄市正定县，是以明末清初文化为背景的仿古建筑群。 
+            </p>
+        </div>
+    </div>
+</div>
+<!-- 网上购票弹窗 -->
+<div class="modal-overlay" id="ticketModal">
+    <div class="modal">
+        <span class="modal-close" id="ticketClose">&times;</span>
+        <div class="modal-text">
+            <h3>网上购票</h3>
+            <p>请选择购票平台：</p>
+            <div class="ticket-links">
+                <a class="ticket-link" href="#" target="_blank">美团</a>
+                <a class="ticket-link" href="#" target="_blank">携程</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="./js/slide.js"></script>
+<script>
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalClose = document.getElementById('modalClose');
+    const openModalBtn = document.querySelector('.open-modal-btn');
+
+    openModalBtn.addEventListener('click', () => {
+        modalOverlay.style.display = 'flex';
+    });
+
+    modalClose.addEventListener('click', () => {
+        modalOverlay.style.display = 'none';
+    });
+
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+            modalOverlay.style.display = 'none';
+        }
+    });
+</script>
+<script>
+    // 网上购票弹窗
+    const ticketBtn = document.querySelector('.open-ticket-btn');
+    const ticketModal = document.getElementById('ticketModal');
+    const ticketClose = document.getElementById('ticketClose');
+
+    if (ticketBtn) {
+        ticketBtn.addEventListener('click', () => {
+            ticketModal.style.display = 'flex';
+        });
+    }
+    if (ticketClose) {
+        ticketClose.addEventListener('click', () => {
+            ticketModal.style.display = 'none';
+        });
+    }
+    if (ticketModal) {
+        ticketModal.addEventListener('click', (e) => {
+            if (e.target === ticketModal) {
+                ticketModal.style.display = 'none';
+            }
+        });
+    }
+
+    // 红楼梦文化按钮跳转
+    const honglouBtn = document.querySelector('.honglou-btn');
+    if (honglouBtn) {
+        honglouBtn.addEventListener('click', () => {
+            window.location.href = 'honglou.html';
+        });
+    }
+</script>
+</body>
+</html>

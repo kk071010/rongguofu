@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+    font-family: "KaiTi", "STKaiti", "SimSun", serif;
+    background-color: #faf6f1;
+    color: #333;
+}
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
